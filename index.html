@@ -377,7 +377,7 @@ button:hover{
             <h1>🎉SORTEO DONNA🎉</h1>
 
             <p>
-                ganador aleatorio
+               ganador aleatorio
             </p>
 
         </div>
@@ -433,6 +433,7 @@ function obtenerParticipantes(){
     .map(x => x.trim())
     .filter(x => x.length > 0);
 
+    // quitar duplicados
     lista = [...new Set(lista)];
 
     return lista;
@@ -467,32 +468,33 @@ function iniciarRuleta(){
 
     let mezcla = [];
 
-    // MUCHOS ANTES
-    for(let i=0;i<40;i++){
+    // MUCHAS VUELTAS COMPLETAS
+    // TODOS LOS PARTICIPANTES APARECEN
+    for(let v=0; v<8; v++){
 
-        const random =
-        participantes[
-            Math.floor(Math.random() * participantes.length)
-        ];
+        let copia = [...participantes];
 
-        mezcla.push(random);
+        // mezclar orden
+        copia.sort(() => Math.random() - 0.5);
+
+        // agregar todos
+        mezcla.push(...copia);
     }
 
     // POSICIÓN GANADOR
     const posicionGanador = mezcla.length;
 
-    // AGREGAR GANADOR
+    // GANADOR
     mezcla.push(ganador);
 
-    // MUCHOS DESPUÉS
-    for(let i=0;i<25;i++){
+    // MÁS DESPUÉS DEL GANADOR
+    for(let v=0; v<3; v++){
 
-        const random =
-        participantes[
-            Math.floor(Math.random() * participantes.length)
-        ];
+        let copia = [...participantes];
 
-        mezcla.push(random);
+        copia.sort(() => Math.random() - 0.5);
+
+        mezcla.push(...copia);
     }
 
     // CREAR ITEMS
@@ -538,7 +540,7 @@ function iniciarRuleta(){
 
         // ANIMACIÓN
         cinta.style.transition =
-        "transform 9s cubic-bezier(.08,.8,.17,1)";
+        "transform 10s cubic-bezier(.08,.8,.17,1)";
 
         cinta.style.transform =
         `translateY(-${destino}px)`;
@@ -575,7 +577,7 @@ function iniciarRuleta(){
 
             },900);
 
-        },9000);
+        },10000);
 
     },100);
 
